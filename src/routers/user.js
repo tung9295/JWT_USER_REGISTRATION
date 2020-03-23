@@ -48,4 +48,18 @@ router.get('/users/profile', auth, async(req, res) => {
   res.send(req.user.name)
 })
 
+router.post('/users/logout', auth, async(req, res) => {
+  req.user.tokens = req.user.tokens.filter(token => {
+    return (token.token != req.token)
+  })
+  req.user.save()
+    .then(
+      res.send('LOGGED OUT')
+    )
+    .catch(err => {
+      res.status(401).send(err)
+    })
+  
+})
+
 module.exports = router;

@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 
 const router = express.Router();
 
-router.post('/users', async (req, res) => {
+router.post('/users/create', async (req, res) => {
   //Create new user
   try {
     const user = new User(req.body);
@@ -43,9 +43,9 @@ router.post('/users/login', (req, res) => {
     })
 });
 
-router.get('/users/me', auth, async(req, res) => {
+router.get('/users/profile', auth, async(req, res) => {
   // View logged in user profile
-  res.send(req.user)
+  res.send(req.user.name)
 })
 
 module.exports = router;

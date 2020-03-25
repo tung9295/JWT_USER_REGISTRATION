@@ -59,7 +59,17 @@ router.post('/users/logout', auth, async(req, res) => {
     .catch(err => {
       res.status(401).send(err)
     })
-  
+})
+
+router.post('/users/logoutall', auth, (req, res) => {
+  req.user.tokens.splice(0, req.user.tokens.length)
+  req.user.save()
+    .then(
+      res.send('LOGGED OUT FROM ALL DEVICES')
+    )
+    .catch(err => {
+      res.status(401).send(err)
+    })
 })
 
 module.exports = router;
